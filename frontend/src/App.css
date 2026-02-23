@@ -1,5 +1,35 @@
 body{
+  padding: 0;
+  margin: 0;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.hero {
+  position: relative;
+  height: 300px; /* Ajusta según lo que necesites */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Texto a la derecha */
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('./assets/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(2px); /* Ajusta el blur aquí */
+  z-index: 0;
+}
+
+.hero h1 {
+  position: relative;
+  z-index: 1;
+  color: white;
+  margin-right: 40px; /* Espacio desde el borde derecho */
+  font-size: 80px;
 }
 
 .container{
@@ -11,6 +41,8 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .positionItem{
