@@ -12,6 +12,7 @@ import './App.css'
 
 function App() {
   const [positionsList, setPositionList] = useState([]);
+  const [repository, setRepository] = useState("");
 
   const getPositionsList = async () => {
     try {
@@ -25,6 +26,30 @@ function App() {
   useEffect(() => {
     getPositionsList();
   }, []);
+
+  const postApply = async () => {
+    const candidate = {
+      uuid: "eb08591c-a6a8-419b-8e42-b8dec6b87fff",
+      jobId: "4416372005",
+      candidateId: "74193122005",
+      repoUrl: repository
+    }
+
+    try {
+      const apply = await axios.post("http://localhost:8080/api/", candidate);
+      console.log("[APP] Apply sended: ", apply);
+    } catch (error) {
+      console.log("[APP] Error posting apply to backend.");
+    }
+  }
+
+  const handleSubmit = () => {
+    if(!repository.trim()){
+      alert("El campo del repositorio es obligatorio.");
+      return;
+    }
+    postApply();
+  }
 
   return (
     <div className='container'>
@@ -48,9 +73,13 @@ function App() {
                 variant="outlined"
                 placeholder="Paste your repo here"
                 fullWidth
+                value={repoUrl}
+                onChange={e => setRepository(e.target.value)}
               />
             </Box>
-            <Button variant="contained" style={{ width: "140px" }}>Submit</Button>
+            <Button variant="contained" style={{ width: "140px" }} onClick={handleSubmit}>
+              Submit
+            </Button>
           </div>
         ))}
       </section>
