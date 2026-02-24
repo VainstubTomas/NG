@@ -12,7 +12,11 @@ const postApply = async (candidateData) => {
         console.log("[SERVICES] Apply to job sended");
         return response.data;
     } catch (error) {
-        console.log("[SERVICES] Error fetching open positions: ", error);
+        if (error.response) {
+            console.log("[SERVICES] Error posting apply:", error.response.data);
+        } else {
+            console.log("[SERVICES] Error posting apply:", error.message);
+        }
     }
 }
 

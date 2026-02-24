@@ -12,7 +12,6 @@ import './App.css'
 
 function App() {
   const [positionsList, setPositionList] = useState([]);
-  const [repository, setRepository] = useState("");
   const [repositories, setRepositories] = useState({});
 
   const getPositionsList = async () => {
@@ -42,17 +41,29 @@ function App() {
       return;
     }
     const candidate = {
-      uuid: "eb08591c-a6a8-419b-8e42-b8dec6b87fff",
-      jobId: "4416372005",
-      candidateId: "74193122005",
-      repoUrl: repoUrl
+      "uuid": "eb08591c-a6a8-419b-8e42-b8dec6b87fff",
+      "jobId": "4416372005",
+      "candidateId": "74193122005",
+      "applicationId": "77900813005",
+      "repoUrl": repoUrl
     }
     postApply(candidate);
+    setRepositories(prev => ({
+      ...prev,
+      [id]: ""
+    }));
   }
 
   const postApply = async (candidate) => {
     try {
-      const apply = await axios.post("http://localhost:8080/api/", candidate);
+      const apply = await axios.post("http://localhost:8080/api/",
+        candidate,
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
       console.log("[APP] Apply sended: ", apply);
     } catch (error) {
       console.log("[APP] Error posting apply to backend.");
