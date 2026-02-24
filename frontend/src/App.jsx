@@ -73,7 +73,7 @@ function App() {
                 variant="outlined"
                 placeholder="Paste your repo here"
                 fullWidth
-                value={repoUrl}
+                value={repository}
                 onChange={e => setRepository(e.target.value)}
               />
             </Box>
